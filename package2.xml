@@ -11,8 +11,8 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
   <email>pear@laurent-laville.org</email>
   <active>yes</active>
  </lead>
- <date>2006-05-04</date>
- <time>23:09:13</time>
+ <date>2006-05-13</date>
+ <time>15:37:40</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -31,31 +31,59 @@ Since 0.1.0:
  <contents>
   <dir baseinstalldir="PEAR/PackageFileManager" name="/">
    <dir name="examples">
-    <file name="makePFMFrontend.php" role="doc" />
     <file name="makePFMFrontend.xml" role="doc" />
     <file name="makePFMWebFrontend.php" role="doc" />
    </dir> <!-- /examples -->
    <dir name="Frontend">
     <dir name="Decorator">
-     <file name="HTMLTable.php" role="php" />
+     <file name="HTMLTable.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
     </dir> <!-- /Frontend/Decorator -->
     <dir name="Web">
-     <file name="arrow_ltr.gif" role="php" />
-     <file name="Default.php" role="php" />
-     <file name="DependenciesPage.php" role="php" />
-     <file name="doSelection.js" role="data" />
-     <file name="Dump.php" role="php" />
-     <file name="ErrorsPage.php" role="php" />
-     <file name="ExceptionsPage.php" role="php" />
-     <file name="MaintainersPage.php" role="php" />
-     <file name="PackagePage.php" role="php" />
-     <file name="pages.php" role="php" />
-     <file name="PreviewPage.php" role="php" />
-     <file name="Process.php" role="php" />
-     <file name="ReleasePage.php" role="php" />
-     <file name="ReplacementsPage.php" role="php" />
-     <file name="RolesPage.php" role="php" />
-     <file name="styles.css" role="data" />
+     <file name="Default.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+      <tasks:replace from="@package_name@" to="name" type="package-info" />
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+     </file>
+     <file name="DependenciesPage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="Dump.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="ErrorsPage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="ExceptionsPage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="MaintainersPage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="PackagePage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="pages.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+      <tasks:replace from="@package_name@" to="name" type="package-info" />
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+     </file>
+     <file name="PreviewPage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="Process.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="ReleasePage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="ReplacementsPage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
+     <file name="RolesPage.php" role="php">
+      <tasks:replace from="@package_version@" to="version" type="package-info" />
+     </file>
     </dir> <!-- /Frontend/Web -->
     <file name="Web.php" role="php">
      <tasks:replace from="@package_version@" to="version" type="package-info" />
@@ -63,6 +91,9 @@ Since 0.1.0:
      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
     </file>
    </dir> <!-- /Frontend -->
+   <file name="arrow_ltr.gif" role="data" />
+   <file name="doSelection.js" role="data" />
+   <file name="pfmfe.css" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -118,7 +149,7 @@ Since 0.1.0:
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-04</date>
+   <date>2006-05-13</date>
    <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
    <notes>Initial PEAR release after last step of proposal http://pear.php.net/pepr/pepr-proposal-show.php?id=383
 
