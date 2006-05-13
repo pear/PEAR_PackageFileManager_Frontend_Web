@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings version="0.3.0">
+  <pfm>
+    <changelogoldtonew />
+    <baseinstalldir>PEAR/PackageFileManager</baseinstalldir>
+  </pfm>
+  <gui>
+    <actions>
+      <display>ActionDisplay</display>
+      <process>ActionProcess</process>
+    </actions>
+    <pages>
+      <page class="PackagePage" id="page1" name="Package"/>
+      <page class="ReleasePage" id="page2" name="Release"/>
+      <page class="MaintainersPage" id="page3" name="Maintainers">
+        <drop class="MaintainersPageAction"/>
+        <add class="MaintainersPageAction"/>
+        <edit class="MaintainersPageAction"/>
+        <save class="MaintainersPageAction"/>
+        <cancel class="MaintainersPageAction"/>
+      </page>
+      <page class="DependenciesPage" id="page4" name="Dependencies">
+        <drop class="DependenciesPageAction"/>
+        <add class="DependenciesPageAction"/>
+        <edit class="DependenciesPageAction"/>
+        <save class="DependenciesPageAction"/>
+        <cancel class="DependenciesPageAction"/>
+      </page>
+      <page class="ReplacementsPage" id="page5" name="Replacements">
+        <list class="ReplacementsPageAction"/>
+        <ignore class="ReplacementsPageAction"/>
+        <edit class="ReplacementsPageAction"/>
+        <remove class="ReplacementsPageAction"/>
+        <new class="ReplacementsPageAction"/>
+        <save class="ReplacementsPageAction"/>
+        <cancel class="ReplacementsPageAction"/>
+      </page>
+      <page class="RolesPage" id="page6" name="Roles">
+        <drop class="RolesPageAction"/>
+        <edit class="RolesPageAction"/>
+        <save class="RolesPageAction"/>
+        <cancel class="RolesPageAction"/>
+      </page>
+      <page class="ExceptionsPage" id="page7" name="Exceptions">
+        <edit class="ExceptionsPageAction"/>
+        <remove class="ExceptionsPageAction"/>
+        <save class="ExceptionsPageAction"/>
+        <cancel class="ExceptionsPageAction"/>
+      </page>
+      <page class="PreviewPage" id="page8" name="Preview"/>
+      <page class="ErrorsPage" id="page0" name="Errors"/>
+    </pages>
+  </gui>
+</settings>
