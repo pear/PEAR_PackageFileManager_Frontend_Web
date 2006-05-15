@@ -31,9 +31,11 @@ require_once 'HTML/QuickForm/Action/Jump.php';
 require_once 'HTML/QuickForm/Action/Display.php';
 require_once 'HTML/QuickForm/Action/Direct.php';
 require_once 'PEAR/PackageFileManager/Frontend/Web/pages.php';
-require_once 'PHP/Compat.php';
 
-PHP_Compat::loadFunction('array_combine');
+if (version_compare(phpversion(), '5.0.0', '<')) {
+    require_once 'PHP/Compat.php';
+    PHP_Compat::loadFunction('array_combine');
+}
 
 /**
  * A Web GUI frontend for the PEAR_PackageFileManager2 class.
