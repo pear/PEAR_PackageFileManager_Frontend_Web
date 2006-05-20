@@ -49,7 +49,7 @@ if (version_compare(phpversion(), '5.0.0', '<')) {
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @copyright  2005-2006 Laurent Laville
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: @package_version@
+ * @version    Release: 0.2.0
  * @since      Class available since Release 0.1.0
  */
 
@@ -63,6 +63,99 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
      * @access private
      */
     var $_qfc;
+
+    /**
+     * All default wizard pages definition
+     *
+     * @var    array
+     * @since  0.3.0
+     * @access private
+     */
+    var $_pages = array(
+        array('@' => array(
+                  'class' => 'PackagePage',
+                  'id' => 'page1',
+                  'name' => 'Package')
+            ),
+        array('@' => array(
+                  'class' => 'ReleasePage',
+                  'id' => 'page2',
+                  'name' => 'Release')
+            ),
+        array('@' => array(
+                  'class' => 'MaintainersPage',
+                  'id' => 'page3',
+                  'name' => 'Maintainers'),
+              'drop'   => array('@' => array('class' => 'MaintainersPageAction')),
+              'add'    => array('@' => array('class' => 'MaintainersPageAction')),
+              'edit'   => array('@' => array('class' => 'MaintainersPageAction')),
+              'save'   => array('@' => array('class' => 'MaintainersPageAction')),
+              'cancel' => array('@' => array('class' => 'MaintainersPageAction'))
+            ),
+        array('@' => array(
+                  'class' => 'DependenciesPage',
+                  'id' => 'page4',
+                  'name' => 'Dependencies'),
+              'drop'   => array('@' => array('class' => 'DependenciesPageAction')),
+              'add'    => array('@' => array('class' => 'DependenciesPageAction')),
+              'edit'   => array('@' => array('class' => 'DependenciesPageAction')),
+              'save'   => array('@' => array('class' => 'DependenciesPageAction')),
+              'cancel' => array('@' => array('class' => 'DependenciesPageAction'))
+            ),
+        array('@' => array(
+                  'class' => 'ReplacementsPage',
+                  'id' => 'page5',
+                  'name' => 'Replacements'),
+              'list'   => array('@' => array('class' => 'ReplacementsPageAction')),
+              'ignore' => array('@' => array('class' => 'ReplacementsPageAction')),
+              'edit'   => array('@' => array('class' => 'DependenciesPageAction')),
+              'remove' => array('@' => array('class' => 'DependenciesPageAction')),
+              'new'    => array('@' => array('class' => 'DependenciesPageAction')),
+              'save'   => array('@' => array('class' => 'DependenciesPageAction')),
+              'cancel' => array('@' => array('class' => 'DependenciesPageAction'))
+            ),
+        array('@' => array(
+                  'class' => 'RolesPage',
+                  'id' => 'page6',
+                  'name' => 'Roles'),
+              'drop'   => array('@' => array('class' => 'RolesPageAction')),
+              'edit'   => array('@' => array('class' => 'RolesPageAction')),
+              'save'   => array('@' => array('class' => 'RolesPageAction')),
+              'cancel' => array('@' => array('class' => 'RolesPageAction'))
+            ),
+        array('@' => array(
+                  'class' => 'ExceptionsPage',
+                  'id' => 'page7',
+                  'name' => 'Exceptions'),
+              'edit'   => array('@' => array('class' => 'ExceptionsPageAction')),
+              'remove' => array('@' => array('class' => 'ExceptionsPageAction')),
+              'save'   => array('@' => array('class' => 'ExceptionsPageAction')),
+              'cancel' => array('@' => array('class' => 'ExceptionsPageAction'))
+            ),
+        array('@' => array(
+                  'class' => 'PreviewPage',
+                  'id' => 'page8',
+                  'name' => 'Preview')
+            ),
+        array('@' => array(
+                  'class' => 'ErrorsPage',
+                  'id' => 'page0',
+                  'name' => 'Errors')
+            )
+    );
+
+    /**
+     * All default wizard controller actions definition
+     *
+     * @var    array
+     * @since  0.3.0
+     * @access private
+     */
+    var $_actions = array(
+        'display' => 'ActionDisplay',
+        'process' => 'ActionProcess',
+        'dump'    => false
+    );
 
     /**
      * Constructor (ZE1)
@@ -96,41 +189,41 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
     /**
      * Adds all pages of wizard at once
      *
+     * @param  mixed $pages  Wizard pages definition array or null if used defaults
+     * @return void
      * @access public
      * @since  0.1.0
      */
-    function addPages()
+    function addPages($pages = null)
     {
-         $pages = $this->getOption(array('settings', 'gui', 'pages'), false);
+         if (!isset($pages)) {
+             // default wizard pages
+             $pages = $this->_pages;
+         }
 
-         foreach($pages['pages']['page'] as $page) {
-             $pageN = array('settings', 'gui', 'pages', array('page', array('id' => $page['@']['id'])));
-             $this->addPage($pageN);
+         foreach($pages as $page) {
+             $this->addPage($page);
          }
     }
 
     /**
      * Add a specific page to wizard or each page one by one
      *
+     * @param  array $page  a single Wizard page definition
+     * @return void
      * @access public
      * @since  0.1.0
      */
-    function addPage($pagePath)
+    function addPage($page)
     {
-        $page = $this->getOption($pagePath, false);
-        if ($this->hasErrors()) {
-            return;
-        }
-
-        $page = array_values($page);
-        $className = $page[0]['@']['class'];
-        $pageName  = $page[0]['@']['name'];
+        $className = $page['@']['class'];
+        $pageName  = $page['@']['name'];
 
         $qfcPage =& new $className($pageName);
         $this->_qfc->addPage($qfcPage);
 
         // adds additional action
-        foreach ($page[0] as $action => $attr) {
+        foreach ($page as $action => $attr) {
             if ($action == '#' || $action == '@') {
                 continue;
             }
@@ -147,10 +240,15 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
      * @access public
      * @since  0.1.0
      */
-    function addActions()
+    function addActions($actions = null)
     {
+        if (!isset($actions)) {
+            // default wizard controller actions
+            $actions = $this->_actions;
+        }
+
         // adds display driver
-        $ActionDisplay = $this->getOption(array('settings','gui','actions','display'));
+        $ActionDisplay = $this->_actions['display'];
         if (!class_exists($ActionDisplay)) {
             include_once 'PEAR/PackageFileManager/Frontend/Web/Default.php';
             $ActionDisplay = 'ActionDisplay';
@@ -158,7 +256,7 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
         $this->_qfc->addAction('display', new $ActionDisplay() );
 
         // adds basic actions (abort, commit, reset)
-        $ActionProcess = $this->getOption(array('settings','gui','actions','process'));
+        $ActionProcess = $this->_actions['process'];
         if (!class_exists($ActionProcess)) {
             include_once 'PEAR/PackageFileManager/Frontend/Web/Process.php';
             $ActionProcess = 'ActionProcess';
@@ -168,7 +266,7 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
         $this->_qfc->addAction('reset',  new $ActionProcess() );
 
         // adds dump class action (if necessary)
-        $ActionDump = $this->getOption(array('settings','gui','actions','dump'));
+        $ActionDump = $this->_actions['dump'];
         if ($ActionDump) {
             if (!class_exists($ActionDump)) {
                 include_once 'PEAR/PackageFileManager/Frontend/Web/Dump.php';
@@ -192,9 +290,8 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
         if ($hasDefaults) {
             $defaults = $sess['defaults'];
         } else {
-            $settings = $this->getOption(array('settings','gui','pages'), false);
             $defaults = array();
-            foreach($settings['pages']['page'] as $page) {
+            foreach($this->_pages as $page) {
                 $def = $this->getDefaults($page['@']['id']);
                 if (is_array($def)) {
                     $defaults = array_merge($defaults, $def);
