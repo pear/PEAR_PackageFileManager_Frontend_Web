@@ -76,7 +76,7 @@ class ActionDump extends HTML_QuickForm_Action
             case '0':   // PFM options
                 break;
             case '1':   // GUI options
-                $settings = $fe->getOption(array('settings'), false);
+                $settings = $fe->getPreferences();
                 varDump($settings);
                 break;
             case '2':   // Forms values container
