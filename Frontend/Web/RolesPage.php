@@ -43,9 +43,9 @@ class RolesPage extends TabbedPage
         $fe = &PEAR_PackageFileManager_Frontend::singleton();
         $sess =& $fe->container();
 
-        $settings = $fe->getOption(array('settings', 'pfm'), false);
+        $roles = $fe->getOption('roles');
 
-        $ext_roles = array('*' => $settings['pfm']['roles']['*']);
+        $ext_roles = array('*' => $roles['*']);
         $dir_roles = array();
 
         $fe->log('debug',

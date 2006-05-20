@@ -42,8 +42,7 @@ class ReleasePage extends TabbedPage
         $fe =& PEAR_PackageFileManager_Frontend::singleton();
 
         // State options list: (value => text, with value === text)
-        $settings = $fe->getOption(array('settings', 'pfm'), false);
-        $states = $settings['pfm']['stability'];
+        $states = $fe->getOption('stability');
         sort($states, SORT_ASC);
         $states = array_combine($states, $states);
 

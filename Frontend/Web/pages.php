@@ -102,7 +102,7 @@ class TabbedPage extends HTML_QuickForm_Page
             }
             if ($event == 'dump') {
                 $fe =& PEAR_PackageFileManager_Frontend::singleton();
-                $dump = $fe->getOption(array('settings','gui','actions','dump'));
+                $dump = $fe->_actions['dump'];
                 if ($dump === false) {
                     continue;
                 }

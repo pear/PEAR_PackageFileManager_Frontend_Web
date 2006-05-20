@@ -62,8 +62,7 @@ class PackagePage extends TabbedPage
 
         // Package type options list: (value => text, with value === text)
         $fe =& PEAR_PackageFileManager_Frontend::singleton();
-        $settings = $fe->getOption(array('settings', 'pfm'), false);
-        $packagetype = $settings['pfm']['package_type'];
+        $packagetype = $fe->getOption('package_type');
         sort($packagetype, SORT_ASC);
         $packagetype = array_combine($packagetype, $packagetype);
 

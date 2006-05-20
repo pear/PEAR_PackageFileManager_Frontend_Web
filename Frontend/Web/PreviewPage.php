@@ -94,11 +94,10 @@ class PreviewPage extends TabbedPage
         $this->buildButtons(array('reset'));
 
         // default options
-        $settings = $fe->getOption(array('settings', 'pfm'), false);
         $def = array(
-            'exportCompatibleV1' => $settings['pfm']['exportcompatiblev1'],
-            'changelogOldToNew'  => $settings['pfm']['changelogoldtonew'],
-            'simpleOutput'       => $settings['pfm']['simpleoutput']
+            'exportCompatibleV1' => $fe->getOption('exportcompatiblev1'),
+            'changelogOldToNew'  => $fe->getOption('changelogoldtonew'),
+            'simpleOutput'       => $fe->getOption('simpleoutput')
             );
         $this->setDefaults($def);
     }

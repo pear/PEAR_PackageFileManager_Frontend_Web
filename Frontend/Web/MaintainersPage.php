@@ -91,8 +91,7 @@ class MaintainersPage extends TabbedPage
         } else {
 
             // Role options list: (value => text, with value === text)
-            $settings = $fe->getOption(array('settings', 'pfm'), false);
-            $roles = $settings['pfm']['maintainer_roles'];
+            $roles = $fe->getOption('maintainer_roles');
             sort($roles, SORT_ASC);
             $roles = array_combine($roles, $roles);
 
