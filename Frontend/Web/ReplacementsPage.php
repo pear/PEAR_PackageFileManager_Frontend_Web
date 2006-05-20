@@ -74,8 +74,7 @@ class ReplacementsPage extends TabbedPage
         if (!$editDialog) {
 
             // File list Generator options list: (value => text, with value === text)
-            $settings = $fe->getOption(array('settings', 'pfm'), false);
-            $generator = $settings['pfm']['filelistgenerator'];
+            $generator = $fe->getOption('plugingenerator');
             sort($generator, SORT_ASC);
             $generator = array_combine($generator, $generator);
 
@@ -95,7 +94,7 @@ class ReplacementsPage extends TabbedPage
             // We need a simple static html area for package files list.
             $this->addElement('static', 'packagefiles', '', $htmltableDecorator->toHtml());
 
-            $def = array('filelistgenerator' => 'File');
+            $def = array('filelistgenerator' => $fe->getOption('filelistgenerator'));
             $this->setDefaults($def);
 
             $commands = array('ignore', 'edit', 'remove');
@@ -112,8 +111,10 @@ class ReplacementsPage extends TabbedPage
             $keys = $pearConfig->getKeys();
             sort($keys, SORT_ASC);
 
-            $package_info = array('name','summary','description','version',
-                'release_date','release_license','release_state','release_notes'
+            $package_info = array('name', 'summary', 'channel', 'notes',
+                'extends', 'description', 'release_notes', 'license',
+                'release-license', 'license-uri', 'version', 'api-version',
+                'state', 'api-state', 'release_date', 'date', 'time'
             );
 
             // for each "replace type"
