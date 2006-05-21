@@ -8,7 +8,7 @@
  * @copyright  2005-2006 Laurent Laville
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    CVS: $Id$
- * @since      File available since Release 0.1.0
+ * @since      File available since Release 0.4.0
  */
 
 require_once 'PEAR/PackageFileManager/Frontend.php';
