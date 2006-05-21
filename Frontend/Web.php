@@ -242,9 +242,8 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
      */
     function addActions($actions = null)
     {
-        if (!isset($actions)) {
-            // default wizard controller actions
-            $actions = $this->_actions;
+        if (isset($actions) && is_array($actions)) {
+            $this->_actions = array_merge($this->_actions, $actions);
         }
 
         // adds display driver
