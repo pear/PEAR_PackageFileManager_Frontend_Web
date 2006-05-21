@@ -11,28 +11,32 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
   <email>pear@laurent-laville.org</email>
   <active>yes</active>
  </lead>
- <date>2006-05-13</date>
- <time>15:37:40</time>
+ <date>2006-05-21</date>
+ <time>15:49:05</time>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
- <notes>Initial PEAR release after last step of proposal http://pear.php.net/pepr/pepr-proposal-show.php?id=383
+ <notes>* news
+- use new configuration structure and management of PEAR_PackageFileManager_Frontend 0.4.0
+- two news examples
+- all PFM replaces task options can now be apply (api-version, ...)
 
-Since 0.1.0:
-- constant PEAR_PACKAGEFILEMANAGER_FRONTEND_WEBDIR was replaced by PEAR_PACKAGEFILEMANAGER_FRONTEND_DATADIR (default location is the package data_dir directory)
-  define this constant only if you want to change skin (css) of frontend easily
-- new entry fields on Dependencies tab to support &quot;group&quot; feature (see tag of package.xml version 2.0)</notes>
+* improvements
+- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
+ </notes>
  <contents>
   <dir baseinstalldir="PEAR/PackageFileManager" name="/">
    <dir name="examples">
+    <file name="makePFMFrontend.php" role="doc" />
     <file name="makePFMFrontend.xml" role="doc" />
     <file name="makePFMWebFrontend.php" role="doc" />
+    <file name="newPackageFromScratch.php" role="doc" />
    </dir> <!-- /examples -->
    <dir name="Frontend">
     <dir name="Decorator">
@@ -120,17 +124,17 @@ Since 0.1.0:
     <min>1.0.4</min>
    </package>
    <package>
-    <name>PHP_Compat</name>
-    <channel>pear.php.net</channel>
-    <min>1.5.0</min>
-   </package>
-   <package>
     <name>HTML_Table</name>
     <channel>pear.php.net</channel>
     <min>1.6.0</min>
    </package>
   </required>
   <optional>
+   <package>
+    <name>PHP_Compat</name>
+    <channel>pear.php.net</channel>
+    <min>1.5.0</min>
+   </package>
    <package>
     <name>Text_Highlighter</name>
     <channel>pear.php.net</channel>
@@ -140,6 +144,26 @@ Since 0.1.0:
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-21</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* news
+- use new configuration structure and management of PEAR_PackageFileManager_Frontend 0.4.0
+- two news examples
+- all PFM replaces task options can now be apply (api-version, ...)
+
+* improvements
+- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.2.0</release>

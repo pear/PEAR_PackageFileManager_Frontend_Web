@@ -15,31 +15,34 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
   </maintainer>
   </maintainers>
  <release>
-  <version>0.2.0</version>
-  <date>2006-05-13</date>
+  <version>0.3.0</version>
+  <date>2006-05-21</date>
   <license>PHP License 3.01</license>
   <state>alpha</state>
-  <notes>Initial PEAR release after last step of proposal http://pear.php.net/pepr/pepr-proposal-show.php?id=383
+  <notes>* news
+- use new configuration structure and management of PEAR_PackageFileManager_Frontend 0.4.0
+- two news examples
+- all PFM replaces task options can now be apply (api-version, ...)
 
-Since 0.1.0:
-- constant PEAR_PACKAGEFILEMANAGER_FRONTEND_WEBDIR was replaced by PEAR_PACKAGEFILEMANAGER_FRONTEND_DATADIR (default location is the package data_dir directory)
-  define this constant only if you want to change skin (css) of frontend easily
-- new entry fields on Dependencies tab to support &quot;group&quot; feature (see tag of package.xml version 2.0)
+* improvements
+- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
   </notes>
   <deps>
    <dep type="php" rel="ge" version="4.2.0" optional="no"/>
    <dep type="pkg" rel="ge" version="0.3.0" optional="no">PEAR_PackageFileManager_Frontend</dep>
    <dep type="pkg" rel="ge" version="3.2.4pl1" optional="no">HTML_QuickForm</dep>
    <dep type="pkg" rel="ge" version="1.0.4" optional="no">HTML_QuickForm_Controller</dep>
-   <dep type="pkg" rel="ge" version="1.5.0" optional="no">PHP_Compat</dep>
    <dep type="pkg" rel="ge" version="1.6.0" optional="no">HTML_Table</dep>
+   <dep type="pkg" rel="ge" version="1.5.0" optional="yes">PHP_Compat</dep>
    <dep type="pkg" rel="ge" version="0.6.6" optional="yes">Text_Highlighter</dep>
   </deps>
   <filelist>
    <dir name="/" baseinstalldir="PEAR/PackageFileManager">
     <dir name="examples">
+     <file role="doc" name="makePFMFrontend.php"/>
      <file role="doc" name="makePFMFrontend.xml"/>
      <file role="doc" name="makePFMWebFrontend.php"/>
+     <file role="doc" name="newPackageFromScratch.php"/>
     </dir> <!-- /examples -->
     <dir name="Frontend">
      <dir name="Decorator">
@@ -105,6 +108,20 @@ Since 0.1.0:
   </filelist>
  </release>
  <changelog>
+   <release>
+    <version>0.3.0</version>
+    <date>2006-05-21</date>
+    <license>PHP License 3.01</license>
+    <state>alpha</state>
+    <notes>* news
+- use new configuration structure and management of PEAR_PackageFileManager_Frontend 0.4.0
+- two news examples
+- all PFM replaces task options can now be apply (api-version, ...)
+
+* improvements
+- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
+    </notes>
+   </release>
    <release>
     <version>0.2.0</version>
     <date>2006-05-13</date>
