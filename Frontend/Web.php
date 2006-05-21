@@ -182,6 +182,10 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
     {
         parent::PEAR_PackageFileManager_Frontend($driver, $packagedirectory, $pathtopackagefile);
 
+        // load all default preferences
+        $config = false;
+        $this->loadPreferences($config);
+
         // build a new non-modal controller
         $this->_qfc = new HTML_QuickForm_Controller($driver, false);
     }
