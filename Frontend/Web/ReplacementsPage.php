@@ -94,7 +94,7 @@ class ReplacementsPage extends TabbedPage
             // We need a simple static html area for package files list.
             $this->addElement('static', 'packagefiles', '', $htmltableDecorator->toHtml());
 
-            $def = array('filelistgenerator' => $fe->getOption('filelistgenerator'));
+            $def = array('filelistgenerator' => ucfirst($fe->getOption('filelistgenerator')));
             $this->setDefaults($def);
 
             $commands = array('ignore', 'edit', 'remove');
