@@ -30,6 +30,7 @@ $web->setOption('exportcompatiblev1', true);
 $web->setOption('changelogoldtonew', false);
 $web->setOption('simpleoutput', true);
 $web->setOption('outputdirectory', 'd:/temp');
+$web->setOption('filelistgenerator', 'cvs');
 
 // add ability to dump some informations for debugging
 $web->addActions(array('dump' => 'ActionDump'));
