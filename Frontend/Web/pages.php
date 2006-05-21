@@ -106,7 +106,8 @@ class TabbedPage extends HTML_QuickForm_Page
                 if ($dump === false) {
                     continue;
                 }
-                $opts = array('0' => 'PFM options', '1' => 'GUI options',
+                $opts = array(
+                    '1' => 'PFM FE options',
                     '2' => 'Forms values container', '3' => 'Warnings Stack',
                     '4' => 'Included Files', '5' => 'PFM package info',
                     '6' => 'Declared Classes'

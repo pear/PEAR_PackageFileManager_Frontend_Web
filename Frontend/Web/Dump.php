@@ -26,7 +26,6 @@ function varDump($var)
         include_once 'Var_Dump.php';
         Var_Dump::display($var, false, array('display_mode' => 'HTML4_Table'));
     } else {
-        $styles = array('');
         echo '<pre style="background-color:#eee; color:#000; padding:1em;">';
         var_dump($var);
         echo '</pre>';
@@ -73,9 +72,7 @@ class ActionDump extends HTML_QuickForm_Action
 
         $opt = $page->getSubmitValue('dumpOption');
         switch ($opt) {
-            case '0':   // PFM options
-                break;
-            case '1':   // GUI options
+            case '1':   // PFM FE options
                 $settings = $fe->getPreferences();
                 varDump($settings);
                 break;
