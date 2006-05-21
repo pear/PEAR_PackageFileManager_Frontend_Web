@@ -108,11 +108,11 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
                   'name' => 'Replacements'),
               'list'   => array('@' => array('class' => 'ReplacementsPageAction')),
               'ignore' => array('@' => array('class' => 'ReplacementsPageAction')),
-              'edit'   => array('@' => array('class' => 'DependenciesPageAction')),
-              'remove' => array('@' => array('class' => 'DependenciesPageAction')),
-              'new'    => array('@' => array('class' => 'DependenciesPageAction')),
-              'save'   => array('@' => array('class' => 'DependenciesPageAction')),
-              'cancel' => array('@' => array('class' => 'DependenciesPageAction'))
+              'edit'   => array('@' => array('class' => 'ReplacementsPageAction')),
+              'remove' => array('@' => array('class' => 'ReplacementsPageAction')),
+              'new'    => array('@' => array('class' => 'ReplacementsPageAction')),
+              'save'   => array('@' => array('class' => 'ReplacementsPageAction')),
+              'cancel' => array('@' => array('class' => 'ReplacementsPageAction'))
             ),
         array('@' => array(
                   'class' => 'RolesPage',
@@ -191,6 +191,9 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
 
         // add all wizard default pages
         $this->addPages();
+
+        // add all wizard default actions
+        $this->addActions();
     }
 
     /**
