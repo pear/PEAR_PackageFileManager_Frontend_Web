@@ -68,7 +68,7 @@ class ReplacementsPage extends TabbedPage
             $editDialog = false;
         }
 
-        // set default dependencies list used when we click on 'Reset' button
+        // set default files list used when we click on 'Reset' button
         $fe->setDefaults('files');
 
         if (!$editDialog) {
@@ -116,6 +116,7 @@ class ReplacementsPage extends TabbedPage
                 'release-license', 'license-uri', 'version', 'api-version',
                 'state', 'api-state', 'release_date', 'date', 'time'
             );
+            sort($package_info, SORT_ASC);
 
             // for each "replace type"
             for ($i = 0; $i < 4; $i++) {
