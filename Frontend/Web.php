@@ -188,6 +188,9 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
 
         // build a new non-modal controller
         $this->_qfc = new HTML_QuickForm_Controller($driver, false);
+
+        // add all wizard default pages
+        $this->addPages();
     }
 
     /**
