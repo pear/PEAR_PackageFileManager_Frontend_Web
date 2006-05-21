@@ -84,7 +84,14 @@ class DependenciesPage extends TabbedPage
             array_unshift($channels, '');
             $channels = array_combine($channels, $channels);
 
-            $names = $sess['packages'];
+            $names[''] = array();
+            foreach($sess['packages'] as $c => $p) {
+                if (count($p)) {
+                    $names[$c] = array_combine($p, $p);
+                } else {
+                    $names[$c] = array();
+                }
+            }
 
             $extensions = $sess['extensions'];
             $extensions[] = '';
