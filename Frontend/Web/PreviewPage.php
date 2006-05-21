@@ -50,13 +50,12 @@ class PreviewPage extends TabbedPage
         }
 
         $fe =& PEAR_PackageFileManager_Frontend::singleton();
-        $sess =& $fe->container();
 
         // Get the package.xml preview and check for errors.
         $preview = $fe->buildPackageFile(true,
-            $sess['defaults']['exportCompatibleV1'],
-            $sess['defaults']['changelogOldToNew'],
-            $sess['defaults']['simpleOutput']
+            $fe->getOption('exportcompatiblev1'),
+            $fe->getOption('changelogoldtonew'),
+            $fe->getOption('simpleoutput')
         );
         if (!$preview) {
             // jump to the warnings page.
