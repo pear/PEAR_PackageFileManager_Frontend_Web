@@ -55,6 +55,7 @@ class ActionProcess extends HTML_QuickForm_Action
                 echo '<h1>Task was canceled</h1>';
                 echo '<p>No package was created or modified.</p>';
                 $fe->container(true);
+                session_destroy();
                 die();
 
             case 'commit':
@@ -67,6 +68,7 @@ class ActionProcess extends HTML_QuickForm_Action
                 ob_end_clean();
                 // reset session data
                 $fe->container(true);
+                session_destroy();
 
                 echo '<h1>Task was proceed</h1>';
                 echo "<p>New package file is available at <b>$filename</b>.</p>";
