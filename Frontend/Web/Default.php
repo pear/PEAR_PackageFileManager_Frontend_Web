@@ -105,7 +105,7 @@ class ActionDisplay extends HTML_QuickForm_Action_Display
 <style type="text/css">
 <!--
 $styles
-// -->
+ -->
 </style>
 <script type="text/javascript">
 //<![CDATA[
