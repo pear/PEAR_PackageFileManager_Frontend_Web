@@ -78,6 +78,16 @@ if (count($_SESSION) == 0) {
     $outputdirectory =& $pfmfegen->addElement('text', 'outputdirectory', 'Generated package.xml directory :');
     $outputdirectory->setSize(50);
 
+    //*
+    $plugins = array(
+        "file" => "File",
+        "cvs" => "Cvs",
+        "svn" => "Svn",
+        "perforce" => "Perforce"
+    );
+    $filelistgenerator =& $pfmfegen->addElement('select', 'filelistgenerator', 'Choose a plugin:');
+    $filelistgenerator->load($plugins);
+
     // --- Save the preferences to file ---------------------------------------
     $tofile =& $pfmfegen->addElement('text', 'tofile', 'Save the preferences to file:');
     $tofile->setSize(50);
@@ -130,6 +140,7 @@ if (count($_SESSION)) {
         $web->setOption('simpleoutput', (bool) $safe['simpleoutput']);
         $web->setOption('outputdirectory',
             empty($safe['outputdirectory']) ? false: $safe['outputdirectory']);
+        $web->setOption('filelistgenerator', $safe['filelistgenerator']);
     } else {
         $config = array($safe['config'], $safe['language']);
         $web->loadPreferences($config);
