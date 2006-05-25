@@ -8,16 +8,13 @@
  * @ignore
  */
 
+require_once 'PEAR/PackageFileManager/Frontend.php';
+
 session_start();
 
 if (count($_SESSION) == 0) {
 
     require_once 'HTML/QuickForm.php';
-
-    if (version_compare(phpversion(), '5.0.0', '<')) {
-        require_once 'PHP/Compat.php';
-        PHP_Compat::loadFunction('file_put_contents');
-    }
 
     function _validate_pfmfegen($values)
     {
@@ -120,8 +117,6 @@ if (count($_SESSION) == 0) {
 }
 
 if (count($_SESSION)) {
-
-    require_once 'PEAR/PackageFileManager/Frontend.php';
 
     $safe = $_SESSION['pfmfegen'];
     $pkgDir = $safe['packagedir'];
