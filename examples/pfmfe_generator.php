@@ -88,6 +88,11 @@ if (count($_SESSION) == 0) {
     $filelistgenerator =& $pfmfegen->addElement('select', 'filelistgenerator', 'Choose a plugin:');
     $filelistgenerator->load($plugins);
 
+    //*
+    $dump =& $pfmfegen->addElement('checkbox', 'actiondump');
+    $dump->setLabel('Debugging/Dump facility :');
+    $dump->setText('yes / no');
+
     // --- Save the preferences to file ---------------------------------------
     $tofile =& $pfmfegen->addElement('text', 'tofile', 'Save the preferences to file:');
     $tofile->setSize(50);
@@ -148,6 +153,10 @@ if (count($_SESSION)) {
 
     if (!empty($safe['tofile'])) {
         $web->savePreferences($safe['tofile'], $safe['filetype']);
+    }
+
+    if (isset($safe['actiondump'])) {
+        $web->addActions(array('dump' => 'ActionDump'));
     }
 
     if ($web->hasErrors('error')) {
