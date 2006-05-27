@@ -1,0 +1,24 @@
+Changes since version 0.3.0 (2006-05-21)
+
+
+Changes since version 0.2.0 (2006-05-13)
+
+  * news:
+  - Configuration structure has changed. More simple.
+  - all PEAR_PackageFileManager2 replaces task options can now be apply
+   (api-version, ...)
+  - No more needed to call loadPreferences(), addPages(), or addActions()
+    defaults are applied first.
+
+  * improvement:
+  - PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
+
+Changes since version 0.1.0 (2006-04-02)
+
+  - constant PEAR_PACKAGEFILEMANAGER_FRONTEND_WEBDIR was replaced
+    by PEAR_PACKAGEFILEMANAGER_FRONTEND_DATADIR
+    (default location is the package data_dir directory).
+    You should define this constant only if you want to change skin (css) of frontend easily.
+  - new entry fields on Dependencies tab to support 'group' feature (package.xml version 2.0)
+
+

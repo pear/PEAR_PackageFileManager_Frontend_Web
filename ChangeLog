@@ -1,0 +1,22 @@
+2006-05-21 Laurent Laville <pear@laurent-laville.org>
+
+    * VERSION: Version 0.3.0 released.
+
+    - No more needed to call loadPreferences();  defaults are applied first.
+    - No more needed to call addPages();  defaults are applied first.
+    - No more needed to call addActions(); defaults are applied first.
+
+2006-05-20 Laurent Laville <pear@laurent-laville.org>
+
+    - addPages() and addActions() signature changed
+    - A default wizard pages structure is now included.
+      No need to give it by config file (more easy to use).
+
+2006-05-15 Laurent Laville <pear@laurent-laville.org>
+
+    - PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
+
+2006-05-13 Laurent Laville <pear@laurent-laville.org>
+
+    * VERSION: Version 0.2.0 released.
+
