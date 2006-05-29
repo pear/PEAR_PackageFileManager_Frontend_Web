@@ -15,23 +15,21 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
   </maintainer>
   </maintainers>
  <release>
-  <version>0.3.0</version>
-  <date>2006-05-21</date>
+  <version>0.4.0</version>
+  <date>2006-05-29</date>
   <license>PHP License 3.01</license>
   <state>alpha</state>
-  <notes>* news
-- use new configuration structure and management of PEAR_PackageFileManager_Frontend 0.4.0
-- two news examples
-- all PFM replaces task options can now be apply (api-version, ...)
+  <notes>* Quality Assurance
+- introduces ChangeLog and NEWS files
 
-* improvements
-- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
+* news
+- upgrades dependency to HTML_QuickForm, HTML_QuickForm_Controller, and PEAR_PackageFileManager_Frontend
   </notes>
   <deps>
    <dep type="php" rel="ge" version="4.2.0" optional="no"/>
-   <dep type="pkg" rel="ge" version="0.3.0" optional="no">PEAR_PackageFileManager_Frontend</dep>
-   <dep type="pkg" rel="ge" version="3.2.4pl1" optional="no">HTML_QuickForm</dep>
-   <dep type="pkg" rel="ge" version="1.0.4" optional="no">HTML_QuickForm_Controller</dep>
+   <dep type="pkg" rel="ge" version="0.5.0" optional="no">PEAR_PackageFileManager_Frontend</dep>
+   <dep type="pkg" rel="ge" version="3.2.5" optional="no">HTML_QuickForm</dep>
+   <dep type="pkg" rel="ge" version="1.0.5" optional="no">HTML_QuickForm_Controller</dep>
    <dep type="pkg" rel="ge" version="1.6.0" optional="no">HTML_Table</dep>
    <dep type="pkg" rel="ge" version="1.5.0" optional="yes">PHP_Compat</dep>
    <dep type="pkg" rel="ge" version="0.6.6" optional="yes">Text_Highlighter</dep>
@@ -43,6 +41,7 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
      <file role="doc" name="makePFMFrontend.xml"/>
      <file role="doc" name="makePFMWebFrontend.php"/>
      <file role="doc" name="newPackageFromScratch.php"/>
+     <file role="doc" name="pfmfe_generator.php"/>
     </dir> <!-- /examples -->
     <dir name="Frontend">
      <dir name="Decorator">
@@ -102,12 +101,26 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
      </file>
     </dir> <!-- /Frontend -->
     <file role="data" name="arrow_ltr.gif"/>
+    <file role="doc" name="ChangeLog"/>
     <file role="data" name="doSelection.js"/>
+    <file role="doc" name="NEWS"/>
     <file role="data" name="pfmfe.css"/>
    </dir> <!-- / -->
   </filelist>
  </release>
  <changelog>
+   <release>
+    <version>0.4.0</version>
+    <date>2006-05-29</date>
+    <license>PHP License 3.01</license>
+    <state>alpha</state>
+    <notes>* Quality Assurance
+- introduces ChangeLog and NEWS files
+
+* news
+- upgrades dependency to HTML_QuickForm, HTML_QuickForm_Controller, and PEAR_PackageFileManager_Frontend
+    </notes>
+   </release>
    <release>
     <version>0.3.0</version>
     <date>2006-05-21</date>

@@ -11,25 +11,22 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
   <email>pear@laurent-laville.org</email>
   <active>yes</active>
  </lead>
- <date>2006-05-21</date>
- <time>15:49:05</time>
+ <date>2006-05-29</date>
+ <time>11:36:18</time>
  <version>
-  <release>0.3.0</release>
-  <api>0.3.0</api>
+  <release>0.4.0</release>
+  <api>0.4.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
- <notes>* news
-- use new configuration structure and management of PEAR_PackageFileManager_Frontend 0.4.0
-- two news examples
-- all PFM replaces task options can now be apply (api-version, ...)
+ <notes>* Quality Assurance
+- introduces ChangeLog and NEWS files
 
-* improvements
-- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
- </notes>
+* news
+- upgrades dependency to HTML_QuickForm, HTML_QuickForm_Controller, and PEAR_PackageFileManager_Frontend</notes>
  <contents>
   <dir baseinstalldir="PEAR/PackageFileManager" name="/">
    <dir name="examples">
@@ -37,6 +34,7 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
     <file name="makePFMFrontend.xml" role="doc" />
     <file name="makePFMWebFrontend.php" role="doc" />
     <file name="newPackageFromScratch.php" role="doc" />
+    <file name="pfmfe_generator.php" role="doc" />
    </dir> <!-- /examples -->
    <dir name="Frontend">
     <dir name="Decorator">
@@ -96,7 +94,9 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
     </file>
    </dir> <!-- /Frontend -->
    <file name="arrow_ltr.gif" role="data" />
+   <file name="ChangeLog" role="doc" />
    <file name="doSelection.js" role="data" />
+   <file name="NEWS" role="doc" />
    <file name="pfmfe.css" role="data" />
   </dir> <!-- / -->
  </contents>
@@ -111,17 +111,17 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
    <package>
     <name>PEAR_PackageFileManager_Frontend</name>
     <channel>pear.php.net</channel>
-    <min>0.3.0</min>
+    <min>0.5.0</min>
    </package>
    <package>
     <name>HTML_QuickForm</name>
     <channel>pear.php.net</channel>
-    <min>3.2.4pl1</min>
+    <min>3.2.5</min>
    </package>
    <package>
     <name>HTML_QuickForm_Controller</name>
     <channel>pear.php.net</channel>
-    <min>1.0.4</min>
+    <min>1.0.5</min>
    </package>
    <package>
     <name>HTML_Table</name>
@@ -146,6 +146,23 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
  <changelog>
   <release>
    <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-29</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* Quality Assurance
+- introduces ChangeLog and NEWS files
+
+* news
+- upgrades dependency to HTML_QuickForm, HTML_QuickForm_Controller, and PEAR_PackageFileManager_Frontend</notes>
+  </release>
+  <release>
+   <version>
     <release>0.3.0</release>
     <api>0.3.0</api>
    </version>
@@ -161,8 +178,7 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
 - all PFM replaces task options can now be apply (api-version, ...)
 
 * improvements
-- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
-   </notes>
+- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)</notes>
   </release>
   <release>
    <version>
