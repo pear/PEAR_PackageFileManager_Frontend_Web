@@ -1,3 +1,11 @@
+2006-05-29 Laurent Laville <pear@laurent-laville.org>
+
+    * VERSION: Version 0.4.0 released.
+
+    - introduces ChangeLog and NEWS files for history and quality assurance
+    - upgrades dependency to HTML_QuickForm 3.2.5,
+      HTML_QuickForm_Controller 1.0.5, and PEAR_PackageFileManager_Frontend 0.5.0
+
 2006-05-21 Laurent Laville <pear@laurent-laville.org>
 
     * VERSION: Version 0.3.0 released.
