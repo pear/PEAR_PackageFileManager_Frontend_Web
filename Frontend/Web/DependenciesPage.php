@@ -271,14 +271,29 @@ class DependenciesPageAction extends HTML_QuickForm_Action
                     $data['name'] = $data['name'][1];
                     if (!empty($data['groupname'])) {
                         $data['group'] = array('name' => $data['groupname'], 'hint' => $data['grouphint']);
-                        unset($data['groupname'], $data['grouphint']);
+                    } else {
+                        $data['group'] = false;
                     }
+                    unset($data['groupname'], $data['grouphint']);
                     $key1 = $sess['values'][$pageName]['depid'];
                     if (empty($data['extension'])) {
                         $_dep = $data['name'] .'" (package)';
+                        unset($data['extension']);
                     } else {
                         $_dep = $data['extension'] .'" (extension)';
                         unset($data['name']);
+                    }
+                    if (empty($data['min'])) {
+                        unset($data['min']);
+                    }
+                    if (empty($data['max'])) {
+                        unset($data['max']);
+                    }
+                    if (empty($data['recommended'])) {
+                        unset($data['recommended']);
+                    }
+                    if (empty($data['exclude'])) {
+                        unset($data['exclude']);
                     }
                     if ($key1 < 0) {
                         array_push($sess['dependencies'], $data);
