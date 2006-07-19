@@ -115,15 +115,6 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
               'cancel' => array('@' => array('class' => 'ReplacementsPageAction'))
             ),
         array('@' => array(
-                  'class' => 'RolesPage',
-                  'id' => 'page6',
-                  'name' => 'Roles'),
-              'drop'   => array('@' => array('class' => 'RolesPageAction')),
-              'edit'   => array('@' => array('class' => 'RolesPageAction')),
-              'save'   => array('@' => array('class' => 'RolesPageAction')),
-              'cancel' => array('@' => array('class' => 'RolesPageAction'))
-            ),
-        array('@' => array(
                   'class' => 'ExceptionsPage',
                   'id' => 'page7',
                   'name' => 'Exceptions'),
