@@ -128,18 +128,6 @@ class PEAR_PackageFileManager_Frontend_Decorator_HTMLTable extends PEAR_PackageF
     }
 
     /**
-     * Decorator::getRoleList()
-     *
-     * @since  0.1.0
-     * @access public
-     */
-    function getRoleList($default, $columns, $rowscope = -1, $ckid = 'roles')
-    {
-        $rolelist = $this->fe->getRoleList($default);
-        $this->_buildList($rolelist, $columns, $rowscope, $ckid);
-    }
-
-    /**
      * Decorator::getExceptionList()
      *
      * @since  0.1.0
