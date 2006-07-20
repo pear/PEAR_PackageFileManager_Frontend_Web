@@ -118,6 +118,7 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
                   'class' => 'ExceptionsPage',
                   'id' => 'page7',
                   'name' => 'Exceptions'),
+              'list'   => array('@' => array('class' => 'ExceptionsPageAction')),
               'edit'   => array('@' => array('class' => 'ExceptionsPageAction')),
               'remove' => array('@' => array('class' => 'ExceptionsPageAction')),
               'save'   => array('@' => array('class' => 'ExceptionsPageAction')),
