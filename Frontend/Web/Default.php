@@ -78,7 +78,8 @@ class ActionDisplay extends HTML_QuickForm_Action_Display
 
         $groups = array('pearInstaller', 'phpVersion',              // on page 1
                         'releaseLicense',                           // on page 2
-                        'plugin'                                    // on page 5
+                        'plugin',                                   // on page 5
+                        'filters'                                   // on page 7
                         );
 
         foreach ($groups as $grp) {
