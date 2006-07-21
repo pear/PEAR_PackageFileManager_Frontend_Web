@@ -197,16 +197,19 @@ class PEAR_PackageFileManager_Frontend_Decorator_HTMLTable extends PEAR_PackageF
                 $t2->setCellContents($r, 0, $ck[$id]);
             }
 
-            $cc2 = $t2->getColCount(0);
-            $attr = array();
-            for($c = 0; $c < $cc2; $c++) {
-                if ($c == $rowscope) {
-                    $attr[$c] = 'class="'.$ckid.'td'.($c+1).'" scope="row"';
-                } else {
-                    $attr[$c] = 'class="'.$ckid.'td'.($c+1).'"';
+            $rowCount = $t2->getRowCount();
+            if ($rowcount > 0) {
+                $cc2 = $t2->getColCount(0);
+                $attr = array();
+                for($c = 0; $c < $cc2; $c++) {
+                    if ($c == $rowscope) {
+                        $attr[$c] = 'class="'.$ckid.'td'.($c+1).'" scope="row"';
+                    } else {
+                        $attr[$c] = 'class="'.$ckid.'td'.($c+1).'"';
+                    }
                 }
+                $t2->updateRowAttributes(0, $attr);
             }
-            $t2->updateRowAttributes(0, $attr);
 
             // alternate row colors
             $altRow1 = array('class' => 'odd');
