@@ -48,7 +48,6 @@ class PEAR_PackageFileManager_Frontend_Decorator_HTMLTable extends PEAR_PackageF
     /**
      * Decorator constructor
      * @param  object    $fe       PEAR_PackageFileManager_Frontend object
-     * @param  object    $table    HTML_Table object
      * @since  0.1.0
      * @access public
      */
