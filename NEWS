@@ -1,3 +1,9 @@
+Changes since version 0.4.0 (2006-05-29)
+
+  - implement filter decorator to display part of files list
+  - removed roles tab; exceptions tab still handle file role exception
+    but allow also to import existing file roles easily.
+
 Changes since version 0.3.0 (2006-05-21)
 
   - no code changes
