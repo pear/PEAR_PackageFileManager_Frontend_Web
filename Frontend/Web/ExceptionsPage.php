@@ -12,6 +12,7 @@
  */
 
 require_once 'PEAR/PackageFileManager/Frontend/Decorator/HTMLTable.php';
+require_once 'PEAR/PackageFileManager/Frontend/Decorator/Filter.php';
 
 /**
  * Creates the page to specify file role for specific files.
@@ -61,6 +62,30 @@ class ExceptionsPage extends TabbedPage
 
         if (!$editDialog) {
 
+            foreach ($sess['defaults']['_files']['mapping'] as $fn) {
+                $pinfo = pathinfo($fn);
+                $ext[] = $pinfo['extension'];
+            }
+            $extensions = array_unique($ext);
+            $extensions[] = '-None-';
+            sort($extensions, SORT_ASC);
+            $extensions = array_combine($extensions, $extensions);
+
+            // Role options list: (value => text, with value === text)
+            require_once 'PEAR/Installer/Role.php';
+            $pageName = $fe->getPageName('page1');
+            $releaseType = $fe->exportValue($pageName, 'packageType');
+            $roles = PEAR_Installer_Role::getValidRoles($releaseType);
+            $roles[] = '-None-';
+            sort($roles, SORT_ASC);
+            $roles = array_combine($roles, $roles);
+
+            $filters = array();
+            $filters[] = &HTML_QuickForm::createElement('select', 'extensionFilter', 'Extension', $extensions);
+            $filters[] = &HTML_QuickForm::createElement('select', 'roleFilter', 'Role', $roles);
+            $filters[] = &HTML_QuickForm::createElement('submit', $this->getButtonName('list'), 'apply Filters');
+            $this->addGroup($filters, 'filters', 'Filters applied on list :', '', false);
+
             $hdr = array('Path', 'Role');
             $table = new HTML_Table(array('class' => 'tableone'));
             $htmltableDecorator = new PEAR_PackageFileManager_Frontend_Decorator_HTMLTable($fe);
@@ -68,6 +93,9 @@ class ExceptionsPage extends TabbedPage
             $htmltableDecorator->getExceptionList($hdr);
             // We need a simple static html area for maintainers list.
             $this->addElement('static', 'exceptions', '', $htmltableDecorator->toHtml());
+
+            $def = array('extensionFilter' => '-None-', 'roleFilter' => '-None-');
+            $this->setDefaults($def);
 
             $commands = array('edit', 'remove');
             $nocmd    = array('commit');
@@ -182,6 +210,21 @@ class ExceptionsPageAction extends HTML_QuickForm_Action
         if (isset($sess['valid'][$pageName]) && $sess['valid'][$pageName]) {
 
             switch ($actionName) {
+                case 'list':
+                    $filters = array();
+                    $filter1 = $sess['values'][$pageName]['extensionFilter'];
+                    $filter2 = $sess['values'][$pageName]['roleFilter'];
+                    if ($filter1 != '-None-') {
+                        $filters['extension'] = $filter1;
+                    }
+                    if ($filter2 != '-None-') {
+                        $filters['role'] = $filter2;
+                    }
+
+                    $filterDecorator = new PEAR_PackageFileManager_Frontend_Decorator_Filter($fe);
+                    $filterDecorator->setFilters($filters);
+                    $sess['files'] = $filterDecorator->getFileList();
+                    break;
                 case 'save':
                     $data = $page->exportValue('role');
                     $key1 = $sess['values'][$pageName]['fileid'];
