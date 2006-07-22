@@ -1,3 +1,9 @@
+
+2006-07-22 Laurent Laville <pear@laurent-laville.org>
+
+    -  allow multi-selection on exception file list;
+       can give a role on a subset of files list on one time.
+
 2006-07-21 Laurent Laville <pear@laurent-laville.org>
 
     - Implement filters (extension, role) that can be apply to files list
