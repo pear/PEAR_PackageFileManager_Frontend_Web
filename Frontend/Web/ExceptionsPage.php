@@ -53,7 +53,7 @@ class ExceptionsPage extends TabbedPage
         list($page, $action) = $this->controller->getActionName();
 
         // selection list (false) or edit dialog frame (true)
-        if ($action == 'edit' && $selection_count == 1) {
+        if ($action == 'edit' && $selection_count > 0) {
             $editDialog = true;
         }elseif ($action == 'save') {
             $editDialog = true;
@@ -102,6 +102,12 @@ class ExceptionsPage extends TabbedPage
 
         } else {
 
+            // we need a multiple-select box for list of file targets
+            $rPath =& $this->addElement('select', 'exceptfiles');
+            $rPath->setMultiple(true);
+            $rPath->setLabel('Path:');
+            $rPath->freeze();
+
             // Role options list: (value => text, with value === text)
             $pageName = $fe->getPageName('page1');
             $releaseType = $fe->exportValue($pageName, 'packageType');
@@ -118,14 +124,16 @@ class ExceptionsPage extends TabbedPage
                 $key1 = -1;
                 $def = array();
             } else {
-                $needle = array_keys($selection);
-                $key1   = array_shift($needle);
-                $def = array(
-                    'path' => $sess['files']['mapping'][$key1],
-                    'role' => $sess['files'][$key1]['role']
-                );
+                $keys = $needle = array_keys($selection);
+                $key1 = array_shift($needle);
+
+                $files = array();
+                foreach($keys as $k) {
+                    $files[$k] = $sess['files']['mapping'][$k];
+                }
+                $rPath->load($files, $keys);
+                $def = array('exceptfiles' => $keys);
             }
-            $this->addElement('hidden', 'fileid', $key1);
 
             // applies new filters to the element values
             $this->applyFilter('__ALL__', 'trim');
@@ -218,14 +226,24 @@ class ExceptionsPageAction extends HTML_QuickForm_Action
                     $sess['files'] = $filterDecorator->getFileList();
                     break;
                 case 'save':
-                    $data = $page->exportValue('role');
-                    $key1 = $sess['values'][$pageName]['fileid'];
-                    $sess['files'][$key1]['role'] = $data;
-                    $sess['defaults']['_files'][$key1]['role'] = $data;
+                    $data = $page->exportValues(array('exceptfiles', 'role'));
+                    $keys = $data['exceptfiles'];
                     $fe->log('info',
                         str_pad($pageName .'('. __LINE__ .')', 20, '.') .
-                        ' add exception: "'. $data .'" for "'. $sess['files'][$key1]['path'] .'"'
+                        ' exceptions on files: '. serialize($keys)
                     );
+                    if (!is_array($keys)) {
+                        $keys = array($keys);
+                    }
+
+                    foreach($keys as $key1) {
+                        $sess['files'][$key1]['role'] = $data['role'];
+                        $sess['defaults']['_files'][$key1]['role'] = $data['role'];
+                        $fe->log('info',
+                            str_pad($pageName .'('. __LINE__ .')', 20, '.') .
+                            ' add exception: "'. $data['role'] .'" for "'. $sess['files'][$key1]['path'] .'"'
+                        );
+                    }
                     break;
                 case 'remove':
                     $selection = $page->getSubmitValue('files');
