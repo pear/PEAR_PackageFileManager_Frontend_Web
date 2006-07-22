@@ -17,6 +17,7 @@
  */
 
 require_once 'Pager/Pager.php';
+require_once 'PEAR/PackageFileManager/Frontend/Decorator/Filter.php';
 
 /**
  * Creates the page to add simple or global replacements.
@@ -86,6 +87,20 @@ class ReplacementsPage extends TabbedPage
 
             $flplugin = $this->getSubmitValue('filelistgenerator');
 
+            foreach ($sess['defaults']['_files']['mapping'] as $fn) {
+                $pinfo = pathinfo($fn);
+                $ext[] = $pinfo['extension'];
+            }
+            $extensions = array_unique($ext);
+            $extensions[] = '-None-';
+            sort($extensions, SORT_ASC);
+            $extensions = array_combine($extensions, $extensions);
+
+            $filters = array();
+            $filters[] = &HTML_QuickForm::createElement('select', 'extensionFilter', 'Extension', $extensions);
+            $filters[] = &HTML_QuickForm::createElement('submit', $this->getButtonName('sort'), 'Apply');
+            $this->addGroup($filters, 'filters', 'Filters applied on list :', '', false);
+
             $hdr = array('Path', 'Replaces');
             $table = new HTML_Table(array('class' => 'tableone'));
             $htmltableDecorator = new PEAR_PackageFileManager_Frontend_Decorator_HTMLTable($fe);
@@ -94,11 +109,13 @@ class ReplacementsPage extends TabbedPage
             // We need a simple static html area for package files list.
             $this->addElement('static', 'packagefiles', '', $htmltableDecorator->toHtml());
 
-            $def = array('filelistgenerator' => ucfirst($fe->getOption('filelistgenerator')));
+            $def = array('filelistgenerator' => ucfirst($fe->getOption('filelistgenerator')),
+                         'extensionFilter' => '-None-'
+                         );
             $this->setDefaults($def);
 
             $commands = array('ignore', 'edit', 'remove');
-            $nocmd    = array('commit');
+            $nocmd    = array('commit', 'reset');
 
         } else {
             $types = array('', 'package-info','pear-config','php-const');
@@ -265,10 +282,6 @@ class ReplacementsPage extends TabbedPage
             str_pad($this->getAttribute('id') .'('. __LINE__ .')', 20, '.') .
             " applyDefaults ActionName=($page,$action)"
         );
-
-        if ($action == 'reset') {
-            $fe->getFileList(true);
-        }
     }
 }
 
@@ -314,6 +327,17 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
         if (isset($sess['valid'][$pageName]) && $sess['valid'][$pageName]) {
 
             switch ($actionName) {
+                case 'sort':
+                    $filters = array();
+                    $filter1 = $sess['values'][$pageName]['extensionFilter'];
+                    if ($filter1 != '-None-') {
+                        $filters['extension'] = $filter1;
+                    }
+
+                    $filterDecorator =& new PEAR_PackageFileManager_Frontend_Decorator_Filter($fe);
+                    $filterDecorator->setFilters($filters);
+                    $sess['files'] = $filterDecorator->getFileList();
+                    break;
                 case 'list':
                     unset($sess['files']);
                     $fe->getFilelist(false, false, $sess['values'][$pageName]['filelistgenerator']);
@@ -329,6 +353,7 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                                 ' ignore file: "' . $sess['files']['mapping'][$k] . '"'
                             );
                             $sess['files'][$k]['ignore'] = true;
+                            $sess['defaults']['_files'][$k]['ignore'] = true;
                         }
                     }
                     break;
@@ -338,6 +363,7 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                         $keys = array_keys($selection);
                         foreach ($keys as $k) {
                             $sess['files'][$k]['replacements'] = array();
+                            $sess['defaults']['_files'][$k]['replacements'] = array();
                         }
                     }
                     break;
@@ -374,6 +400,7 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                             '" (from='. $data['replace_from'] .', to='. $data['to'] .
                             ') for "'. $data['mapping'] .'"'
                         );
+                        $sess['defaults']['_files'][$k] = $sess['files'][$k];
                     }
                     break;
             }
