@@ -13,6 +13,7 @@
 
 require_once 'PEAR/PackageFileManager/Frontend/Decorator/HTMLTable.php';
 require_once 'PEAR/PackageFileManager/Frontend/Decorator/Filter.php';
+require_once 'PEAR/Installer/Role.php';
 
 /**
  * Creates the page to specify file role for specific files.
@@ -72,7 +73,6 @@ class ExceptionsPage extends TabbedPage
             $extensions = array_combine($extensions, $extensions);
 
             // Role options list: (value => text, with value === text)
-            require_once 'PEAR/Installer/Role.php';
             $pageName = $fe->getPageName('page1');
             $releaseType = $fe->exportValue($pageName, 'packageType');
             $roles = PEAR_Installer_Role::getValidRoles($releaseType);
@@ -83,7 +83,7 @@ class ExceptionsPage extends TabbedPage
             $filters = array();
             $filters[] = &HTML_QuickForm::createElement('select', 'extensionFilter', 'Extension', $extensions);
             $filters[] = &HTML_QuickForm::createElement('select', 'roleFilter', 'Role', $roles);
-            $filters[] = &HTML_QuickForm::createElement('submit', $this->getButtonName('list'), 'apply Filters');
+            $filters[] = &HTML_QuickForm::createElement('submit', $this->getButtonName('sort'), 'Apply');
             $this->addGroup($filters, 'filters', 'Filters applied on list :', '', false);
 
             $hdr = array('Path', 'Role');
@@ -98,12 +98,11 @@ class ExceptionsPage extends TabbedPage
             $this->setDefaults($def);
 
             $commands = array('edit', 'remove');
-            $nocmd    = array('commit');
+            $nocmd    = array('commit', 'reset');
 
         } else {
 
             // Role options list: (value => text, with value === text)
-            require_once 'PEAR/Installer/Role.php';
             $pageName = $fe->getPageName('page1');
             $releaseType = $fe->exportValue($pageName, 'packageType');
             $roles = PEAR_Installer_Role::getValidRoles($releaseType);
@@ -158,13 +157,6 @@ class ExceptionsPage extends TabbedPage
             str_pad($this->getAttribute('id') .'('. __LINE__ .')', 20, '.') .
             " applyDefaults ActionName=($page,$action)"
         );
-
-        if ($action == 'reset') {
-            $sess =& $fe->container();
-            foreach ($sess['files'] as $key1 => $file) {
-                $sess['files'][$key1]['role'] = '';
-            }
-        }
     }
 }
 
@@ -210,7 +202,7 @@ class ExceptionsPageAction extends HTML_QuickForm_Action
         if (isset($sess['valid'][$pageName]) && $sess['valid'][$pageName]) {
 
             switch ($actionName) {
-                case 'list':
+                case 'sort':
                     $filters = array();
                     $filter1 = $sess['values'][$pageName]['extensionFilter'];
                     $filter2 = $sess['values'][$pageName]['roleFilter'];
@@ -229,6 +221,7 @@ class ExceptionsPageAction extends HTML_QuickForm_Action
                     $data = $page->exportValue('role');
                     $key1 = $sess['values'][$pageName]['fileid'];
                     $sess['files'][$key1]['role'] = $data;
+                    $sess['defaults']['_files'][$key1]['role'] = $data;
                     $fe->log('info',
                         str_pad($pageName .'('. __LINE__ .')', 20, '.') .
                         ' add exception: "'. $data .'" for "'. $sess['files'][$key1]['path'] .'"'
