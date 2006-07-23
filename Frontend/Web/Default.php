@@ -78,7 +78,7 @@ class ActionDisplay extends HTML_QuickForm_Action_Display
 
         $groups = array('pearInstaller', 'phpVersion',              // on page 1
                         'releaseLicense',                           // on page 2
-                        'plugin',                                   // on page 5
+                        'plugin', 'group',                          // on page 5
                         'filters'                                   // on page 5 and 7
                         );
 
