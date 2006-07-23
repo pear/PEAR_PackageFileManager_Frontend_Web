@@ -99,13 +99,15 @@ class DependenciesPage extends TabbedPage
             $extensions = array_combine($extensions, $extensions);
 
             // Type options list: (value => text, with value === text)
-            $types = array('group', 'optional', 'required');
+            $types = array('group-package', 'group-subpackage', 'group-extension', 'optional', 'required');
             $types = array_combine($types, $types);
 
             $this->addElement('select', 'type', 'Type:', $types, array('style' => 'width:10em;'));
 
-            $this->addElement('text', 'groupname', 'Name (group):', array('size' => 10));
-            $this->addElement('text', 'grouphint', 'Hint (group):', array('size' => 70));
+            $group = array();
+            $group[] = &HTML_QuickForm::createElement('text', 'groupname', 'Name', array('size' => 10));
+            $group[] = &HTML_QuickForm::createElement('text', 'grouphint', 'Hint', array('size' => 70));
+            $this->addGroup($group, 'group', 'Group :', '', false);
 
             $this->addElement('select', 'extension', 'Extension:', $extensions, array('style' => 'width:10em;'));
 
@@ -164,15 +166,26 @@ class DependenciesPage extends TabbedPage
     function cbValidateDependency($fields)
     {
         $errors = array();
-        if (empty($fields['extension']) && count($fields['name']) == 1) {
-            $errors['name'] = 'Extension or Package is required';
-        }
-        if ($fields['type'] == 'group') {
+
+        if (substr($fields['type'], 0, 5) == 'group') {
             if (empty($fields['groupname'])) {
-                $errors['groupname'] = 'Group name is required';
+                $errors['group'] = 'Group name is required';
+            } elseif (empty($fields['grouphint'])) {
+                $errors['group'] = 'Group hint is required';
+            } else {
+                if ($fields['type'] == 'group-extension') {
+                    if (empty($fields['extension'])) {
+                        $errors['extension'] = 'Extension is required';
+                    }
+                } else {
+                    if (count($fields['name']) == 1) {
+                        $errors['name'] = 'Package is required';
+                    }
+                }
             }
-            if (empty($fields['grouphint'])) {
-                $errors['grouphint'] = 'Group hint is required';
+        } else {
+            if (empty($fields['extension']) && count($fields['name']) == 1) {
+                $errors['name'] = 'Extension or Package is required';
             }
         }
         return empty($errors)? true: $errors;
@@ -264,17 +277,20 @@ class DependenciesPageAction extends HTML_QuickForm_Action
                     break;
                 case 'save':
                     $data = $page->exportValues(array(
-                        'type', 'groupname', 'grouphint', 'extension', 'name',
+                        'type', 'group', 'extension', 'name',
                         'min', 'max', 'recommended', 'exclude'
                         ));
                     $data['channel'] = $data['name'][0];
                     $data['name'] = $data['name'][1];
-                    if (!empty($data['groupname'])) {
-                        $data['group'] = array('name' => $data['groupname'], 'hint' => $data['grouphint']);
+                    if (substr($data['type'], 0, 5) == 'group') {
+                        $data['group'] = array(
+                            'name' => $data['group']['groupname'],
+                            'hint' => $data['group']['grouphint']
+                            );
                     } else {
                         $data['group'] = false;
                     }
-                    unset($data['groupname'], $data['grouphint']);
+                    unset($data['group']['groupname'], $data['group']['grouphint']);
                     $key1 = $sess['values'][$pageName]['depid'];
                     if (empty($data['extension'])) {
                         $_dep = $data['name'] .'" (package)';
