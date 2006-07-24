@@ -87,6 +87,7 @@ class ReplacementsPage extends TabbedPage
 
             $flplugin = $this->getSubmitValue('filelistgenerator');
 
+            $ext = array();
             foreach ($sess['defaults']['_files']['mapping'] as $fn) {
                 $pinfo = pathinfo($fn);
                 $ext[] = $pinfo['extension'];
@@ -96,8 +97,18 @@ class ReplacementsPage extends TabbedPage
             sort($extensions, SORT_ASC);
             $extensions = array_combine($extensions, $extensions);
 
+            $chg = array();
+            foreach ($sess['defaults']['_files'] as $k => $kdata) {
+                $chg[] = count($kdata['replacements']);
+            }
+            $replaces = array_unique($chg);
+            $replaces[] = '-All-';
+            natsort($replaces);
+            $replaces = array_combine($replaces, $replaces);
+
             $filters = array();
             $filters[] = &HTML_QuickForm::createElement('select', 'extensionFilter', 'Extension', $extensions);
+            $filters[] = &HTML_QuickForm::createElement('select', 'replaceFilter', 'Replacement', $replaces);
             $filters[] = &HTML_QuickForm::createElement('submit', $this->getButtonName('sort'), 'Apply');
             $this->addGroup($filters, 'filters', 'Filters applied on list :', '', false);
 
@@ -110,7 +121,8 @@ class ReplacementsPage extends TabbedPage
             $this->addElement('static', 'packagefiles', '', $htmltableDecorator->toHtml());
 
             $def = array('filelistgenerator' => ucfirst($fe->getOption('filelistgenerator')),
-                         'extensionFilter' => '-None-'
+                         'extensionFilter' => '-None-',
+                         'replaceFilter'   => '-All-'
                          );
             $this->setDefaults($def);
 
@@ -332,6 +344,10 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                     $filter1 = $sess['values'][$pageName]['extensionFilter'];
                     if ($filter1 != '-None-') {
                         $filters['extension'] = $filter1;
+                    }
+                    $filter2 = $sess['values'][$pageName]['replaceFilter'];
+                    if ($filter2 != '-All-') {
+                        $filters['replace'] = $filter2;
                     }
 
                     $filterDecorator =& new PEAR_PackageFileManager_Frontend_Decorator_Filter($fe);

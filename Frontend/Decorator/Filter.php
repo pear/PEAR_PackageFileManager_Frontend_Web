@@ -102,6 +102,11 @@ class PEAR_PackageFileManager_Frontend_Decorator_Filter extends PEAR_PackageFile
                     if ($datasrc[$k]['role'] === $value) {
                         $keep++;
                     }
+                } elseif ($type == 'replace') {
+                // apply filter on file replacement
+                    if (count($datasrc[$k]['replacements']) == $value) {
+                        $keep++;
+                    }
                 } else {
                 // keep file on case no filter is given
                     $keep++;
