@@ -1,6 +1,9 @@
 Changes since version 0.4.0 (2006-05-29)
 
   - implement filter decorator to display part of files list
+    . extension filter is allow on replacements and exceptions tabs
+    . role filter is allow on exceptions tabs
+    . replacements task count filter is allow on replacements tabs
   - removed roles tab; exceptions tab still handle file role exception
     but allow also to import existing file roles easily.
 
