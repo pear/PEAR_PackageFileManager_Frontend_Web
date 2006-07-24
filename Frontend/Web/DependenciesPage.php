@@ -76,7 +76,7 @@ class DependenciesPage extends TabbedPage
             $this->addElement('static', 'dependencies', '', $htmltableDecorator->toHtml());
 
             $commands = array('drop', 'edit', 'add');
-            $nocmd    = array('commit');
+            $nocmd    = array('commit', 'reset');
 
         } else {
 
@@ -207,11 +207,6 @@ class DependenciesPage extends TabbedPage
             str_pad($this->getAttribute('id') .'('. __LINE__ .')', 20, '.') .
             " applyDefaults ActionName=($page,$action)"
         );
-
-        // apply only when in list mode,
-        if ($action == 'reset') {
-            $fe->getDepList(true);
-        }
     }
 }
 
