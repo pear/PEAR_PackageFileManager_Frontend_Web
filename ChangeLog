@@ -4,16 +4,24 @@
 
     - Implement filters (extension, replacement) that can be apply to files list
       on Replacements tab.
+    - reset button is un-available on dependencies tab
+
+2006-07-23 Laurent Laville <pear@laurent-laville.org>
+
+    - introduces new types (group-package, group-subpackage, group-extension)
+      to manage group dependencies
 
 2006-07-22 Laurent Laville <pear@laurent-laville.org>
 
-    -  allow multi-selection on exception file list;
-       can give a role on a subset of files list on one time.
+    - allow multi-selection on exception file list;
+      can give a role on a subset of files list on one time.
+    - reset button is un-available on replacements tab
 
 2006-07-21 Laurent Laville <pear@laurent-laville.org>
 
     - Implement filters (extension, role) that can be apply to files list
       on Exception tab.
+    - reset button is un-available on exceptions tab
     - Fix notice error when list to decorate is empty
 
 2006-05-29 Laurent Laville <pear@laurent-laville.org>
