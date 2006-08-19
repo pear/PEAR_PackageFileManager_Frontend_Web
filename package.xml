@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0" packagerversion="1.4.10">
+<package version="1.0" packagerversion="1.4.11">
  <name>PEAR_PackageFileManager_Frontend_Web</name>
  <summary>A Web GUI frontend for the PEAR_PackageFileManager2 class.</summary>
  <description>This package is a web frontend for the PEAR_PackageFileManager2 class.
@@ -15,29 +15,26 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
   </maintainer>
   </maintainers>
  <release>
-  <version>0.5.0</version>
-  <date>2006-07-24</date>
+  <version>0.6.0</version>
+  <date>2006-08-19</date>
   <license>PHP License 3.01</license>
   <state>alpha</state>
   <notes>* bugs:
-- Fix notice error when list to decorate is empty
-
-* improvements
-- upgrades dependencies to
-  PEAR_PackageFileManager_Frontend 0.6.0
-  HTML_QuickForm 3.2.6, HTML_QuickForm_Controller 1.0.6
+- fixed warning errors when use frontend from scratch in relacements page.
+- removed dupplicated path field on exception page intoduced in version 0.5.0
 
 * news
-- implement filters (on extension, role, replace) on replacements and exceptions pages
-- allow multi-selection on exception file list
-- removed page 6 (roles)  management
-- reset button is un-available on replacements, dependencies and exceptions tabs
-- introduces new types (group-package, group-subpackage, group-extension)
-  to manage group dependencies
+- PEAR_PACKAGEFILEMANAGER_FRONTEND_DATADIR constant was removed.
+  Use instead new setStyleSheet() method on default display driver to define external stylesheet.
+- add new addAction() method on PEAR_PackageFileManager_Frontend_Web class
+- pear channel field changed from entry field to select box in package page.
+
+* improvements
+- upgraded dependency to PEAR_PackageFileManager_Frontend 0.7.0
   </notes>
   <deps>
    <dep type="php" rel="ge" version="4.2.0" optional="no"/>
-   <dep type="pkg" rel="ge" version="0.6.0" optional="no">PEAR_PackageFileManager_Frontend</dep>
+   <dep type="pkg" rel="ge" version="0.7.0" optional="no">PEAR_PackageFileManager_Frontend</dep>
    <dep type="pkg" rel="ge" version="3.2.6" optional="no">HTML_QuickForm</dep>
    <dep type="pkg" rel="ge" version="1.0.6" optional="no">HTML_QuickForm_Controller</dep>
    <dep type="pkg" rel="ge" version="1.6.0" optional="no">HTML_Table</dep>
@@ -51,6 +48,7 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
      <file role="doc" name="makePFMFrontend.xml"/>
      <file role="doc" name="makePFMWebFrontend.php"/>
      <file role="doc" name="newPackageFromScratch.php"/>
+     <file role="doc" name="orangeskin.css"/>
      <file role="doc" name="pfmfe_generator.php"/>
     </dir> <!-- /examples -->
     <dir name="Frontend">
@@ -122,6 +120,25 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
   </filelist>
  </release>
  <changelog>
+   <release>
+    <version>0.6.0</version>
+    <date>2006-08-19</date>
+    <license>PHP License 3.01</license>
+    <state>alpha</state>
+    <notes>* bugs:
+- fixed warning errors when use frontend from scratch in relacements page.
+- removed dupplicated path field on exception page intoduced in version 0.5.0
+
+* news
+- PEAR_PACKAGEFILEMANAGER_FRONTEND_DATADIR constant was removed.
+  Use instead new setStyleSheet() method on default display driver to define external stylesheet.
+- add new addAction() method on PEAR_PackageFileManager_Frontend_Web class
+- pear channel field changed from entry field to select box in package page.
+
+* improvements
+- upgraded dependency to PEAR_PackageFileManager_Frontend 0.7.0
+    </notes>
+   </release>
    <release>
     <version>0.5.0</version>
     <date>2006-07-24</date>
