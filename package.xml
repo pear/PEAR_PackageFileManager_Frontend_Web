@@ -113,9 +113,9 @@ It makes it easier for developers to create and maintain PEAR package.xml files 
     </dir> <!-- /Frontend -->
     <file role="data" name="arrow_ltr.gif"/>
     <file role="doc" name="ChangeLog"/>
+    <file role="data" name="default.css"/>
     <file role="data" name="doSelection.js"/>
     <file role="doc" name="NEWS"/>
-    <file role="data" name="pfmfe.css"/>
    </dir> <!-- / -->
   </filelist>
  </release>
