@@ -88,9 +88,11 @@ class ReplacementsPage extends TabbedPage
             $flplugin = $this->getSubmitValue('filelistgenerator');
 
             $ext = array();
-            foreach ($sess['defaults']['_files']['mapping'] as $fn) {
-                $pinfo = pathinfo($fn);
-                $ext[] = $pinfo['extension'];
+            if (isset($sess['defaults']['_files'])) {
+                foreach ($sess['defaults']['_files']['mapping'] as $fn) {
+                    $pinfo = pathinfo($fn);
+                    $ext[] = $pinfo['extension'];
+                }
             }
             $extensions = array_unique($ext);
             $extensions[] = '-None-';
@@ -98,8 +100,10 @@ class ReplacementsPage extends TabbedPage
             $extensions = array_combine($extensions, $extensions);
 
             $chg = array();
-            foreach ($sess['defaults']['_files'] as $k => $kdata) {
-                $chg[] = count($kdata['replacements']);
+            if (isset($sess['defaults']['_files'])) {
+                foreach ($sess['defaults']['_files'] as $k => $kdata) {
+                    $chg[] = count($kdata['replacements']);
+                }
             }
             $replaces = array_unique($chg);
             $replaces[] = '-All-';
