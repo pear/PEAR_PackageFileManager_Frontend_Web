@@ -19,12 +19,6 @@
  * @since      File available since Release 0.1.0
  */
 
-if (!defined('PEAR_PACKAGEFILEMANAGER_FRONTEND_DATADIR')) {
-    define('PEAR_PACKAGEFILEMANAGER_FRONTEND_DATADIR',
-        '@data_dir@' . DIRECTORY_SEPARATOR .
-        '@package_name@' . DIRECTORY_SEPARATOR);
-}
-
 require_once 'HTML/QuickForm/Controller.php';
 require_once 'HTML/QuickForm/Action/Submit.php';
 require_once 'HTML/QuickForm/Action/Jump.php';
@@ -33,7 +27,7 @@ require_once 'HTML/QuickForm/Action/Direct.php';
 require_once 'PEAR/PackageFileManager/Frontend/Web/pages.php';
 
 if (version_compare(phpversion(), '5.0.0', '<')) {
-    require_once 'PHP/Compat.php';
+    include_once 'PHP/Compat.php';
     PHP_Compat::loadFunction('array_combine');
 }
 
@@ -234,7 +228,7 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
         }
 
         // adds common action on each page
-        $this->_qfc->addAction($pageName, new HTML_QuickForm_Action_Direct());
+        $this->addAction($pageName, new HTML_QuickForm_Action_Direct());
     }
 
     /**
@@ -255,7 +249,7 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
             include_once 'PEAR/PackageFileManager/Frontend/Web/Default.php';
             $ActionDisplay = 'ActionDisplay';
         }
-        $this->_qfc->addAction('display', new $ActionDisplay() );
+        $this->addAction('display', new $ActionDisplay() );
 
         // adds basic actions (abort, commit, reset)
         $ActionProcess = $this->_actions['process'];
@@ -263,9 +257,9 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
             include_once 'PEAR/PackageFileManager/Frontend/Web/Process.php';
             $ActionProcess = 'ActionProcess';
         }
-        $this->_qfc->addAction('abort',  new $ActionProcess() );
-        $this->_qfc->addAction('commit', new $ActionProcess() );
-        $this->_qfc->addAction('reset',  new $ActionProcess() );
+        $this->addAction('abort',  new $ActionProcess() );
+        $this->addAction('commit', new $ActionProcess() );
+        $this->addAction('reset',  new $ActionProcess() );
 
         // adds dump class action (if necessary)
         $ActionDump = $this->_actions['dump'];
@@ -274,8 +268,23 @@ class PEAR_PackageFileManager_Frontend_Web extends PEAR_PackageFileManager_Front
                 include_once 'PEAR/PackageFileManager/Frontend/Web/Dump.php';
                 $ActionDump = 'ActionDump';
             }
-            $this->_qfc->addAction('dump', new $ActionDump() );
+            $this->addAction('dump', new $ActionDump() );
         }
+    }
+
+    /**
+     * Registers a handler for a specific action.
+     *
+     * @param      string    $actionName  name of the action
+     * @param      object    $action      the handler for the action
+     * @return     void
+     * @access     public
+     * @since      0.6.0
+     */
+    function addAction($actionName, &$action)
+    {
+        $this->_actions[$actionName] = get_class($action);
+        $this->_qfc->addAction($actionName, $action);
     }
 
     /**
