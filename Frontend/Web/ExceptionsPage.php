@@ -115,9 +115,6 @@ class ExceptionsPage extends TabbedPage
             $roles[] = '';
             sort($roles, SORT_ASC);
             $roles = array_combine($roles, $roles);
-
-            $ePath =& $this->addElement('text', 'path', 'Path:');
-            $ePath->freeze();
             $this->addElement('select', 'role', 'Role:', $roles);
 
             if ($selection_count == 0) {
