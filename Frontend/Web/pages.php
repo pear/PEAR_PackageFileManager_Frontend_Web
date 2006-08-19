@@ -36,6 +36,7 @@ class TabbedPage extends HTML_QuickForm_Page
     function buildTabs()
     {
         $this->_formBuilt = true;
+        $this->setRequiredNote('<span class="required">*</span><span class="note"> denotes required field</span>');
 
         // Here we get all page names in the controller
         $pages  = array();
@@ -78,7 +79,7 @@ class TabbedPage extends HTML_QuickForm_Page
             $disable = array($disable);
         }
 
-        $confirm = $attributes = array('style' => 'width:80px;');
+        $confirm = $attributes = array('class' => 'cmdButton');
         $confirm['onclick'] = "return(confirm('Are you sure ?'));";
 
         $prevnext = array();
