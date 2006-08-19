@@ -22,6 +22,9 @@ $logger = &Log::singleton('file', $output . '.log', '', array(), PEAR_LOG_INFO);
 
 // build empty instance of PFM web frontend
 $web =& PEAR_PackageFileManager_Frontend::singleton('Web', false, false, $logger);
+// add ability to dump some informations for debugging with default class 'ActionDump'
+$web->addActions(array('dump' => true));
+// stop if serious error(s)
 if ($web->hasErrors('error')) {
     $errors = $web->getErrors();
     echo '<pre>';
@@ -29,5 +32,6 @@ if ($web->hasErrors('error')) {
     echo '</pre>';
     die('exit on Error');
 }
+// run the wizard tabbed pages
 $web->run();
 ?>
