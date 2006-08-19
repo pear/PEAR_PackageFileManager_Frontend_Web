@@ -21,7 +21,7 @@ $output = $_ENV['TMP'] . DIRECTORY_SEPARATOR . basename(__FILE__,'.php');
 $logger = &Log::singleton('file', $output . '.log');
 
 // where to find package sources
-$pkgDir = 'D:/php/pear/PEAR_PackageFileManager_Frontend/package2.xml';
+$pkgDir = 'c:/php/pear/PEAR_PackageFileManager_Frontend/package2.xml';
 
 $web =& PEAR_PackageFileManager_Frontend::singleton('Web', $pkgDir, false, $logger);
 // configuration options
@@ -29,11 +29,14 @@ $web->setOption('baseinstalldir', 'PEAR/PackageFileManager');
 $web->setOption('exportcompatiblev1', true);
 $web->setOption('changelogoldtonew', false);
 $web->setOption('simpleoutput', true);
-$web->setOption('outputdirectory', 'd:/temp');
+$web->setOption('outputdirectory', 'c:/php/pear');
 $web->setOption('filelistgenerator', 'cvs');
 
-// add ability to dump some informations for debugging
-$web->addActions(array('dump' => 'ActionDump'));
+// add ability to dump some informations for debugging with default class 'ActionDump'
+$web->addActions(array('dump' => true));
+// add default renderer but with a custom stylesheet
+$css = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'orangeskin.css';
+$web->addAction('display', new ActionDisplay($css));
 
 // stop if serious error(s)
 if ($web->hasErrors('error')) {
