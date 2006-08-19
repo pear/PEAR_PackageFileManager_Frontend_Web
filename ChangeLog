@@ -1,3 +1,15 @@
+2006-08-19 Laurent Laville <pear@laurent-laville.org>
+
+    * VERSION: Version 0.6.0 released.
+
+    - PEAR_PACKAGEFILEMANAGER_FRONTEND_DATADIR constant was removed.
+      Use instead new setStyleSheet() method on default display driver to define
+      external stylesheet.
+    - add new addAction() method on PEAR_PackageFileManager_Frontend_Web class
+    - pear channel field changed from entry field to select box in package page.
+    - fixed warning errors when use frontend from scratch in relacements page.
+    - removed dupplicated path field on exception page intoduced in version 0.5.0
+
 2006-07-24 Laurent Laville <pear@laurent-laville.org>
 
     * VERSION: Version 0.5.0 released.

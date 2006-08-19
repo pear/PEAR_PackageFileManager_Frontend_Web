@@ -1,3 +1,8 @@
+Changes since version 0.5.0 (2006-07-24)
+
+  - pear channel field changed from entry field to select box to avoid typo error choice
+  - default display driver allow to use external stylesheet to improve look and feel
+
 Changes since version 0.4.0 (2006-05-29)
 
   - implement filter decorator to display part of files list
