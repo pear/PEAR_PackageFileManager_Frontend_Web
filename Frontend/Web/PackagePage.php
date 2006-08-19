@@ -41,10 +41,18 @@ class PackagePage extends TabbedPage
         // tab caption
         $this->addElement('header', null, 'Package Summary');
 
-        // We need a simple entry box for the channel selection.
-        $this->addElement('text', 'channel',
+        $fe =& PEAR_PackageFileManager_Frontend::singleton();
+        $sess =& $fe->container();
+
+        // Package channels list
+        $names = array();
+        foreach ($sess['packages'] as $c => $p) {
+            $names[$c] = $c;
+        }
+        // We need a simple select box for the channel selection.
+        $this->addElement('select', 'channel',
                           array('Channel :', 'Default download source'),
-                          array('size' => 50)
+                          $names, array('style' => 'width:10em;')
         );
 
         // We need a group entry box for the PEAR installer version.
@@ -61,7 +69,6 @@ class PackagePage extends TabbedPage
         $this->addGroup($php, 'phpVersion', 'PHP version :', '');
 
         // Package type options list: (value => text, with value === text)
-        $fe =& PEAR_PackageFileManager_Frontend::singleton();
         $packagetype = $fe->getOption('package_type');
         sort($packagetype, SORT_ASC);
         $packagetype = array_combine($packagetype, $packagetype);
