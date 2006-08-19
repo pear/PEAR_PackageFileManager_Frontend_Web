@@ -19,12 +19,10 @@ session_start();
 $config = array('makePFMFrontend.xml', 'XML');
 
 // where to find package sources
-$pkgDir = 'D:/php/pear/PEAR_PackageFileManager_Frontend_Web/package2.xml';
+$pkgDir = 'c:/php/pear/PEAR_PackageFileManager_Frontend_Web/package2.xml';
 
 $web =& PEAR_PackageFileManager_Frontend::singleton('Web', $pkgDir);
 $web->loadPreferences($config);
-$web->addPages();
-$web->addActions();
 if ($web->hasErrors('error')) {
     $errors = $web->getErrors();
     echo '<pre>';
