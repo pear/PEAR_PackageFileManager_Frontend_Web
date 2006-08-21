@@ -1,3 +1,9 @@
+Changes since version 0.6.0 (2006-08-19)
+
+  On Replacements page, you can now give :
+  - a convert line endings (windows and unix) for each file
+  - a new name to each file on installation
+
 Changes since version 0.5.0 (2006-07-24)
 
   - pear channel field changed from entry field to select box to avoid typo error choice
