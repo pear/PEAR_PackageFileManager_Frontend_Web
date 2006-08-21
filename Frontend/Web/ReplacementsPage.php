@@ -204,6 +204,9 @@ class ReplacementsPage extends TabbedPage
             $eol = array_combine($eol, $eol);
             $this->addElement('select', 'eol_exception', 'Line ending:', $eol);
 
+            // we need a simple text box for the name the file should be installed as
+            $this->addElement('text', 'installas', 'Installation name:', array('size' => 40));
+
             if ($selection_count == 0) {
                 $key1 = -1;
                 $def = array();
@@ -251,7 +254,8 @@ class ReplacementsPage extends TabbedPage
                     'replace_from' => $item['from'],
                     'replace_type' => array($item['type'], $item['to']),
                     'platform_exception' => $sess['files'][$key1]['platform'],
-                    'eol_exception'      => $sess['files'][$key1]['eol']
+                    'eol_exception'      => $sess['files'][$key1]['eol'],
+                    'installas'          => $sess['files'][$key1]['installas']
                 );
             }
 
@@ -396,7 +400,9 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                 case 'new':
                 case 'save':
                     $data = $page->exportValues(array(
-                        'replace_file','replace_from','replace_type','platform_exception','eol_exception')
+                        'replace_file', 'replace_from', 'replace_type',
+                        'platform_exception', 'eol_exception',
+                        'installas')
                     );
 
                     $keys = $data['replace_file'];
@@ -424,6 +430,7 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                             ? false : $data['platform_exception'];
                         $sess['files'][$k]['eol'] = empty($data['eol_exception'])
                             ? false : $data['eol_exception'];
+                        $sess['files'][$k]['installas'] = $data['installas'];
                         $fe->log('info',
                             str_pad($pageName .'('. __LINE__ .')', 20, '.') .
                             ' add replacement: "'. $types[$data['replace_type'][0]] .
