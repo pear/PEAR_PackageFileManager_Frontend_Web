@@ -199,6 +199,11 @@ class ReplacementsPage extends TabbedPage
             $platform = array_combine($platform, $platform);
             $this->addElement('select', 'platform_exception', 'Platform exception:', $platform);
 
+            // we need a simple select box for platform end-of-line
+            $eol = array('', 'windows', 'unix');
+            $eol = array_combine($eol, $eol);
+            $this->addElement('select', 'eol_exception', 'Line ending:', $eol);
+
             if ($selection_count == 0) {
                 $key1 = -1;
                 $def = array();
@@ -245,7 +250,8 @@ class ReplacementsPage extends TabbedPage
                     'replace_file' => $keys,
                     'replace_from' => $item['from'],
                     'replace_type' => array($item['type'], $item['to']),
-                    'platform_exception' => $sess['files'][$key1]['platform']
+                    'platform_exception' => $sess['files'][$key1]['platform'],
+                    'eol_exception'      => $sess['files'][$key1]['eol']
                 );
             }
 
@@ -390,7 +396,7 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                 case 'new':
                 case 'save':
                     $data = $page->exportValues(array(
-                        'replace_file','replace_from','replace_type','platform_exception')
+                        'replace_file','replace_from','replace_type','platform_exception','eol_exception')
                     );
 
                     $keys = $data['replace_file'];
@@ -407,13 +413,17 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                         } else {
                             $rid = $sess['values'][$pageName]['replaceid'];
                         }
-                        $sess['files'][$k]['replacements'][$rid] = array(
-                            'from' => $data['replace_from'],
-                            'type' => $data['replace_type'][0],
-                            'to'   => $data['replace_type'][1]
-                        );
+                        if ($rid > 0) {
+                            $sess['files'][$k]['replacements'][$rid] = array(
+                                'from' => $data['replace_from'],
+                                'type' => $data['replace_type'][0],
+                                'to'   => $data['replace_type'][1]
+                            );
+                        }
                         $sess['files'][$k]['platform'] = empty($data['platform_exception'])
                             ? false : $data['platform_exception'];
+                        $sess['files'][$k]['eol'] = empty($data['eol_exception'])
+                            ? false : $data['eol_exception'];
                         $fe->log('info',
                             str_pad($pageName .'('. __LINE__ .')', 20, '.') .
                             ' add replacement: "'. $types[$data['replace_type'][0]] .
