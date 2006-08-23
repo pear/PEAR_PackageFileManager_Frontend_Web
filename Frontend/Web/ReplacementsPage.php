@@ -255,7 +255,7 @@ class ReplacementsPage extends TabbedPage
                     'replace_type' => array($item['type'], $item['to']),
                     'platform_exception' => $sess['files'][$key1]['platform'],
                     'eol_exception'      => $sess['files'][$key1]['eol'],
-                    'installas'          => $sess['files'][$key1]['installas']
+                    'installas'          => (is_bool($sess['files'][$key1]['installas'])) ? '' : $sess['files'][$key1]['installas']
                 );
             }
 
@@ -430,7 +430,8 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                             ? false : $data['platform_exception'];
                         $sess['files'][$k]['eol'] = empty($data['eol_exception'])
                             ? false : $data['eol_exception'];
-                        $sess['files'][$k]['installas'] = $data['installas'];
+                        $sess['files'][$k]['installas'] = empty($data['installas'])
+                            ? false : $data['installas'];
                         $fe->log('info',
                             str_pad($pageName .'('. __LINE__ .')', 20, '.') .
                             ' add replacement: "'. $types[$data['replace_type'][0]] .
