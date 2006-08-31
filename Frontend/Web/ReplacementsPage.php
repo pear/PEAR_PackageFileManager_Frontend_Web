@@ -419,7 +419,7 @@ class ReplacementsPageAction extends HTML_QuickForm_Action
                         } else {
                             $rid = $sess['values'][$pageName]['replaceid'];
                         }
-                        if ($rid > 0) {
+                        if ($rid >= 0) {
                             $sess['files'][$k]['replacements'][$rid] = array(
                                 'from' => $data['replace_from'],
                                 'type' => $data['replace_type'][0],
