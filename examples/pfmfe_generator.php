@@ -60,11 +60,6 @@ if (count($_SESSION) == 0) {
     $baseinstalldir->setSize(50);
 
     //*
-    $exportcompatiblev1 =& $pfmfegen->addElement('checkbox', 'exportcompatiblev1');
-    $exportcompatiblev1->setLabel('package.xml 1.0 :');
-    $exportcompatiblev1->setText('export compatible');
-
-    //*
     $changelogoldtonew =& $pfmfegen->addElement('checkbox', 'changelogoldtonew');
     $changelogoldtonew->setLabel('ChangeLog :');
     $changelogoldtonew->setText('list from oldest entry to newest');
@@ -104,7 +99,6 @@ if (count($_SESSION) == 0) {
     $pfmfegen->setDefaults(array(
         'language'           => 'XML',
         'packagedir'         => dirname(__FILE__),
-        'exportcompatiblev1' => true,
         'changelogoldtonew'  => false,
         'simpleoutput'       => true
         ));
@@ -140,7 +134,6 @@ if (count($_SESSION)) {
 
     if (empty($safe['config'])) {
         $web->setOption('baseinstalldir', $safe['baseinstalldir']);
-        $web->setOption('exportcompatiblev1', (bool) $safe['exportcompatiblev1']);
         $web->setOption('changelogoldtonew', (bool) $safe['changelogoldtonew']);
         $web->setOption('simpleoutput', (bool) $safe['simpleoutput']);
         $web->setOption('outputdirectory',

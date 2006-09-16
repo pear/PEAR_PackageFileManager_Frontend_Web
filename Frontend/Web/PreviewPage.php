@@ -53,7 +53,6 @@ class PreviewPage extends TabbedPage
 
         // Get the package.xml preview and check for errors.
         $preview = $fe->buildPackageFile(true,
-            $fe->getOption('exportcompatiblev1'),
             $fe->getOption('changelogoldtonew'),
             $fe->getOption('simpleoutput')
         );
@@ -76,9 +75,6 @@ class PreviewPage extends TabbedPage
             $xml = $preview;
         }
 
-        // We need a simple checkbox for the XML package v1.
-        $this->addElement('checkbox', 'exportCompatibleV1', 'XML version:', 'Export compatible version 1.0');
-
         // We need a simple checkbox for the changelog order option.
         $this->addElement('checkbox', 'changelogOldToNew', 'ChangeLog order:', 'From oldest entry to newest');
 
@@ -94,7 +90,6 @@ class PreviewPage extends TabbedPage
 
         // default options
         $def = array(
-            'exportCompatibleV1' => $fe->getOption('exportcompatiblev1'),
             'changelogOldToNew'  => $fe->getOption('changelogoldtonew'),
             'simpleOutput'       => $fe->getOption('simpleoutput')
             );

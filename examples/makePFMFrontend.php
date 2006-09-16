@@ -26,7 +26,6 @@ $pkgDir = 'c:/php/pear/PEAR_PackageFileManager_Frontend/package2.xml';
 $web =& PEAR_PackageFileManager_Frontend::singleton('Web', $pkgDir, false, $logger);
 // configuration options
 $web->setOption('baseinstalldir', 'PEAR/PackageFileManager');
-$web->setOption('exportcompatiblev1', true);
 $web->setOption('changelogoldtonew', false);
 $web->setOption('simpleoutput', true);
 $web->setOption('outputdirectory', 'c:/php/pear');

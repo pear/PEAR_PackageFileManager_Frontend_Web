@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings version="0.4.0">
-  <exportcompatiblev1>TRUE</exportcompatiblev1>
   <changelogoldtonew />
   <simpleoutput>TRUE</simpleoutput>
   <baseinstalldir>PEAR/PackageFileManager</baseinstalldir>
