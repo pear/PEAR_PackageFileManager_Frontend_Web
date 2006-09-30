@@ -59,12 +59,11 @@ class ActionProcess extends HTML_QuickForm_Action
                 die();
 
             case 'commit':
-                $exportV1 = is_null($page->getSubmitValue('exportCompatibleV1')) ? false : true;
                 $changelogOldToNew =  is_null($page->getSubmitValue('changelogOldToNew')) ? false : true;
                 $simpleOutput = is_null($page->getSubmitValue('simpleOutput')) ? false : true;
 
                 ob_start();
-                $filename = $fe->buildPackageFile(null, $exportV1, $changelogOldToNew, $simpleOutput);
+                $filename = $fe->buildPackageFile(null, $changelogOldToNew, $simpleOutput);
                 ob_end_clean();
                 // reset session data
                 $fe->container(true);
