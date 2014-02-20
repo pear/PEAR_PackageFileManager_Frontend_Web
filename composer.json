@@ -1,0 +1,25 @@
+{
+    "authors": [
+        {
+            "email": "pear@laurent-laville.org",
+            "name": "Laurent Laville",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
+    "description": "More info available on: http://pear.php.net/package/PEAR_PackageFileManager_Frontend_Web",
+    "license": "PHP License 3.01",
+    "name": "pear/pear_packagefilemanager_frontend_web",
+    "support": {
+        "issues": "http:///bugs/search.php?cmd=display&package_name[]=PEAR_PackageFileManager_Frontend_Web",
+        "source": "https://github.com/pear/PEAR_PackageFileManager_Frontend_Web"
+    },
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
